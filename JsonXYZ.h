@@ -1,7 +1,8 @@
+#include <Arduino.h>
+
 #ifndef JSON_XYZ
 #define JSON_XYZ
 
-#include <Arduino.h>
 
 void jsonInit(String *json);
 
