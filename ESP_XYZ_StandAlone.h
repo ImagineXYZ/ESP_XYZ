@@ -16,6 +16,7 @@ class ESP_XYZ
 	public:
 		ESP_XYZ();
 		bool connectAP(const char* ssid, const char* pass);
+		int getRSSI();
 		void softReset();
 		void setTimeout(uint32_t timeout);
 		int readResponse(String* response);
