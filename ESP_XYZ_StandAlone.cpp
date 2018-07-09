@@ -1,5 +1,5 @@
 #include "ESP_XYZ_StandAlone.h"
-//#define DEBUG
+#define DEBUG
 
 ESP_XYZ::ESP_XYZ(void){
 	clientESP=WiFiClient();
@@ -8,13 +8,13 @@ ESP_XYZ::ESP_XYZ(void){
 
 bool ESP_XYZ::connectAP(const char* ssid, const char* pass){
 	uint32_t t = millis();
-	if(WiFi.status() == WL_CONNECTED){
-		return true;
-	}
-	WiFi.mode(WIFI_STA);
+	//if(WiFi.status() == WL_CONNECTED){
+		//return true;
+	//}
+	//WiFi.mode(WIFI_STA);
 	WiFi.begin(ssid, pass);
   	while (WiFi.status() != WL_CONNECTED && (millis() - t) < global_timeout) {
-    	delay(10);
+    	delay(100);//10 -> 100
   	}
 	#ifdef DEBUG
 	  	Serial.println(WiFi.localIP());
@@ -23,6 +23,10 @@ bool ESP_XYZ::connectAP(const char* ssid, const char* pass){
 	  	Serial.println(WiFi.gatewayIP());
 	#endif
   	return (WiFi.status() == WL_CONNECTED); 
+}
+
+int ESP_XYZ::getRSSI(){//Agregada 
+	return WiFi.RSSI();
 }
 
 void ESP_XYZ::softReset(){
@@ -122,6 +126,11 @@ bool ESP_XYZ::MQTTReconnect(String id, int retries, int delay_ms){
 	}
 	return true;
 }
+
+
+
+////////////////////Fuera de mantenimiento, retomar para solicitudes HTTP
+
 
 int ESP_XYZ::readResponse(String* response) {
 
